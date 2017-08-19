@@ -17,17 +17,19 @@ public class Book {
     private String isbn;
     private String publisher;
 
-//    @ManyToMany
-//    private Set<Author> authors = new HashSet<>();
+    @ManyToMany
+    @JoinTable(name = "author_books", joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private Set<Author> authors = new HashSet<>();
 
     public Book() {
     }
 
-    public Book(String title, String isbn, String publisher) {
+    public Book(String title, String isbn, String publisher, Set<Author> authors) {
         this.title = title;
         this.isbn = isbn;
         this.publisher = publisher;
-//        this.authors = authors;
+        this.authors = authors;
     }
 
     public Long getId() {
@@ -62,11 +64,11 @@ public class Book {
         this.publisher = publisher;
     }
 
-//    public Set<Author> getAuthors() {
-//        return authors;
-//    }
-//
-//    public void setAuthors(Set<Author> authors) {
-//        this.authors = authors;
-//    }
+    public Set<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
+    }
 }
